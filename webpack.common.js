@@ -9,8 +9,8 @@ const OUTPUT_FOLDER = './dist',
       SOURCE_FOLDER = './src';
 
 export default {
-  context: path.resolve(__dirname, SOURCE_FOLDER, 'scripts'),
-  entry: './app.js',
+  context: path.resolve(__dirname, SOURCE_FOLDER),
+  entry: './index.js',
   output: {
     path: path.resolve(__dirname, OUTPUT_FOLDER),
     filename: 'assets/app.[chunkhash:8].js'
@@ -47,10 +47,6 @@ export default {
     }]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
     new CleanWebpackPlugin(OUTPUT_FOLDER),
     new ExtractTextPlugin('assets/app.[contenthash:8].css'),
     new HtmlWebpackPlugin({

@@ -11,8 +11,8 @@ module.exports = {
       spritePath: path.resolve(STYLE_PATH),
       groupBy: image => {
         const imgName = path.basename(image.path);
-        if (/weather/.test(imgName) !== -1) {
-          return Promise.resolve('weather');
+        if (/gesture/.test(imgName) !== -1) {
+          return Promise.resolve('gesture');
         } else {
           return Promise.reject();
         }
