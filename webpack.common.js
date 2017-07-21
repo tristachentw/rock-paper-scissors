@@ -40,6 +40,7 @@ export default {
   },
   plugins: [
     new webpack.ProvidePlugin({
+      React: 'react',
       classnames: 'classnames'
     }),
     new CleanWebpackPlugin(OUTPUT_FOLDER),
