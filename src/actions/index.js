@@ -1,5 +1,11 @@
 import * as types from '../constants/action-type';
 
+export const throwingGesture = () => {
+  return {
+    type: types.THROWING_GESTURE
+  };
+};
+
 export const newGame = () => {
   return {
     type: types.NEW_GAME
@@ -12,20 +18,10 @@ export const startGame = () => {
   };
 };
 
-export const stopGame = () => {
-  return {
-    type: types.STOP_GAME
-  };
-};
-
-export const endGame = () => {
-  return {
-    type: types.END_GAME
-  };
-};
-
-export const throwingGesture = () => {
-  return {
-    type: types.THROWING_GESTURE
-  };
+export const stopGame = () => (dispatch, getState) => {
+  dispatch({ type: types.STOP_GAME });
+  const isEnd = getState().players.some(p => p.isWinner);
+  if (isEnd) {
+    dispatch({ type: types.END_GAME });
+  }
 };
