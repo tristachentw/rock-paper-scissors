@@ -5,35 +5,55 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 import Player from './components/player';
 
-const GESTURES = ['rock', 'paper', 'scissors'];
-
 class App extends Component {
   componentWillMount() {
     this.props.actions.newGame();
   }
 
   handleClick = e => {
-    const isPlayed = this.props.game.isPlayed;
-    if (isPlayed) {
-      clearInterval(this.timerID);
-      this.props.actions.throwingGesture();
-    } else {
-      this.timerID = setInterval(() => {
-        this.props.actions.throwingGesture();
-      }, 50);
+    switch (this.props.game.status) {
+      case 'new': //start round1
+      case 'stop':
+        this.props.actions.startGame();
+        this.timerID = setInterval(() => {
+          this.props.actions.throwingGesture();
+        }, 50);
+        break;
+      case 'start': //stop game
+        clearInterval(this.timerID);
+        this.props.actions.stopGame();
+        break;
+      case 'end': //new game
+        this.props.actions.newGame();
+        break;
     }
-    this.props.actions.toggleGame(!isPlayed);
   }
 
   render() {
+    //status: new, end, start, stop
+    let btnText = '';
+    switch (this.props.game.status) {
+      case 'new':
+      case 'stop':
+        btnText = `Round ${this.props.game.round+1}`;
+        break;
+      case 'start':
+        btnText = 'STOP';
+        break;
+      case 'end':
+        btnText = 'NEW';
+        break;
+    }
     return (
-      <div>
+      <div className={this.props.game.status}>
         <div>
           {this.props.players.map((p, i) => {
-            return <Player key={`player${i}`} {...p}></Player>;
+            return <Player key={`player-${i}`} {...p}></Player>;
           })}
         </div>
-        <button className={classnames('button', {'stop': this.props.game.isPlayed})} onClick={this.handleClick}>{this.props.game.isPlayed ? 'Stop' : 'Start'}</button>
+        <button className={classnames('button')} onClick={this.handleClick}>
+          {btnText}
+        </button>
       </div>
     );
   }

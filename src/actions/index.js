@@ -6,10 +6,21 @@ export const newGame = () => {
   };
 };
 
-export const toggleGame = status => {
+export const startGame = () => {
   return {
-    type: types.TOGGLE_GAME,
-    payload: status
+    type: types.START_GAME
+  };
+};
+
+export const stopGame = () => {
+  return {
+    type: types.STOP_GAME
+  };
+};
+
+export const endGame = () => {
+  return {
+    type: types.END_GAME
   };
 };
 

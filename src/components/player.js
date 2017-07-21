@@ -6,7 +6,7 @@ export default class Player extends Component {
     return (
       <div className='player'>
         <div className={classnames(`gesture-${this.props.gesture}`)}></div>
-        <div className='winner'>{this.props.isWinner ? 'Winner!!' : ''}</div>
+        <div className='winner'>{`${this.props.wins}, ${this.props.isWinner}`}</div>
       </div>
     );
   }
