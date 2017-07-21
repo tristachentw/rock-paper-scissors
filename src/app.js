@@ -44,8 +44,9 @@ class App extends Component {
         btnText = 'NEW';
         break;
     }
+    const record = this.props.players.map(p => p.wins);
     return (
-      <div className={this.props.game.status}>
+      <div className={classnames('game', this.props.game.status, `r-${record.join('-')}`)}>
         <div>
           {this.props.players.map((p, i) => {
             return <Player key={`player-${i}`} {...p}></Player>;

@@ -2,15 +2,49 @@
   position: relative
   display: inline-block
   size: 50vw 100vh
+  transition: all ease .2s
+  .icon-crown
+    display: inline-block
+    margin: auto .5rem
 
   &:first-child
     background-color: #303f9f
-    & [class ^= gesture]
-      transform: rotate(90deg)
+    .crows
+      absolute: left 0
   &:last-child
     background-color: #d32f2f
-    & [class ^= gesture]
-      transform: rotate(-90deg) scaleX(-1)
+    .crows
+      absolute: right 0
+
+.game:not(.new):not(.end)
+  color white
+  .player:first-child [class ^= gesture]
+    transform: rotate(90deg)
+  .player:last-child [class ^= gesture]
+    transform: rotate(-90deg) scaleX(-1)
+
+
+.game
+  &.r-0-1
+    .player:first-child
+      width: 25vw
+    .player:last-child
+      width: 75vw
+  &.r-0-2, &.r-1-2
+    .player:first-child
+      width: 0
+    .player:last-child
+      width: 100vw
+  &.r-1-0
+    .player:first-child
+      width: 75vw
+    .player:last-child
+      width: 25vw
+  &.r-2-0, .r-2-1
+    .player:first-child
+      width: 100vw
+    .player:last-child
+      width: 0vw
 
 GESTURES = ('rock' 'paper' 'scissors')
 
@@ -35,3 +69,8 @@ for i in (0..2)
   absolute: left 0 right 0 bottom 25vh
   font-size: 4rem
   text-align: center
+
+
+.icon-crown
+  size: 48px
+  background-image: url('../images/crown.svg')
