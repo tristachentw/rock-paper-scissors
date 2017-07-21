@@ -5,24 +5,19 @@ body
   color: #fff
   background: #333
 
-h1
-  font-size: 5rem
-
-h2, h3
-  font-size: 3rem
-
-#root, .app
-  size: 100%
-  display: flex
-  justify-content: center
-  align-items: center
-
-.logo
-  size: 256px
-
-.btn-next
-  margin: auto 4rem
+.button
+  absolute: left 0 right 0 bottom 10vh
+  margin: auto
   size: 150px
   border-radius: 100%
   font-size: 2rem
-  background: #29B6F6
+  background-color: #4caf50
+
+  &:active
+    background-color: #388e3c
+
+  &.stop
+    background-color: #9c27b0
+
+    &:active
+      background-color: #8e24aa

@@ -3,28 +3,39 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './actions';
-import Page from './components/page';
+import Player from './components/player';
+
+const GESTURES = ['rock', 'paper', 'scissors'];
 
 class App extends Component {
+  componentWillMount() {
+    this.props.actions.newGame();
+  }
+
   handleClick = e => {
-    this.props.actions.showPage('One');
+    const isPlayed = this.props.game.isPlayed;
+    if (isPlayed) {
+      clearInterval(this.timerID);
+      this.props.actions.throwingGesture();
+    } else {
+      this.timerID = setInterval(() => {
+        this.props.actions.throwingGesture();
+      }, 50);
+    }
+    this.props.actions.toggleGame(!isPlayed);
   }
 
   render() {
-    if (this.props.page) {
-      return (
-        <div className='app'>
-          <h1>{`Page ${this.props.page}`}</h1>
+    return (
+      <div>
+        <div>
+          {this.props.players.map((p, i) => {
+            return <Player key={`player${i}`} {...p}></Player>;
+          })}
         </div>
-      );
-    } else {
-      return (
-        <div className='app'>
-          <h1>React</h1>
-          <button className='btn-next' onClick={this.handleClick}>Next</button>
-        </div>
-      );
-    }
+        <button className={classnames('button', {'stop': this.props.game.isPlayed})} onClick={this.handleClick}>{this.props.game.isPlayed ? 'Stop' : 'Start'}</button>
+      </div>
+    );
   }
 }
 

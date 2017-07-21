@@ -36,17 +36,12 @@ export default {
           options: { sourceMap: true, use: [nib()], import: ['~nib/lib/nib/index.styl'] }
         }]
       })
-    }, {
-      test: /\.(jpe?g|png|gif|svg)$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: 'assets/[name].[ext]'
-        }
-      }]
     }]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      classnames: 'classnames'
+    }),
     new CleanWebpackPlugin(OUTPUT_FOLDER),
     new ExtractTextPlugin('assets/app.[contenthash:8].css'),
     new HtmlWebpackPlugin({

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import page from './page';
+import game from './game';
+import players from './players';
 
 const rootReducer = combineReducers({
-  page
+  game,
+  players
 });
 
 export default rootReducer;
