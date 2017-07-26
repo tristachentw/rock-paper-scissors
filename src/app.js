@@ -2,6 +2,7 @@ import './app.styl';
 import { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import gameSetting from './app.json';
 import * as actions from './actions';
 import Player from './components/player';
 
@@ -12,7 +13,7 @@ class App extends Component {
 
   handleClick = e => {
     switch (this.props.game.status) {
-      case 'new': //start round1
+      case 'new': //start game
       case 'stop':
         this.props.actions.startGame();
         this.timerID = setInterval(() => {
@@ -29,31 +30,33 @@ class App extends Component {
     }
   }
 
-  render() {
-    //status: new, end, start, stop
-    let btnText = '';
+  renderToggleStatus = () => {
     switch (this.props.game.status) {
       case 'new':
       case 'stop':
-        btnText = `Round ${this.props.game.round+1}`;
-        break;
+        return `Round ${this.props.game.round+1}`;
       case 'start':
-        btnText = 'STOP';
-        break;
+        return 'STOP';
       case 'end':
-        btnText = 'NEW';
-        break;
+        return 'NEW';
     }
-    const record = this.props.players.map(p => p.wins);
+  }
+
+  render() {
+    const {game, players} = this.props;
+    let sub = 0;
+    if (game.status === 'end') {
+      sub = players[0].isWinner ? gameSetting.need_wins : -1 * gameSetting.need_wins;
+    } else {
+      sub = players.length && players[0].wins - players[1].wins;
+    }
     return (
-      <div className={classnames('game', this.props.game.status, `r-${record.join('-')}`)}>
+      <div className={classnames('game', game.status, `battle-${sub}`)}>
         <div>
-          {this.props.players.map((p, i) => {
-            return <Player key={`player-${i}`} {...p}></Player>;
-          })}
+          {players.map((p, i) => <Player key={`player-${i}`} {...p}></Player>)}
         </div>
-        <button className={classnames('button')} onClick={this.handleClick}>
-          {btnText}
+        <button className='button status-button' onClick={this.handleClick}>
+          {this.renderToggleStatus()}
         </button>
       </div>
     );

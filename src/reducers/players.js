@@ -1,8 +1,9 @@
+import gameSetting from '../app.json';
 import * as types from '../constants/action-type';
 
 const PLAYERS = 2,
-      NEED_WINS = 2,
-      GESTURES = ['rock', 'paper', 'scissors'];
+      NEED_WINS = gameSetting.need_wins,
+      GESTURES = gameSetting.gestures;
 
 const useFloor = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);

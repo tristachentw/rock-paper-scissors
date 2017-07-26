@@ -1,0 +1,4 @@
+{
+  "gestures": ["rock", "paper", "scissors"],
+  "need_wins": 3
+}

@@ -1,52 +1,30 @@
+$GESTURES = getDefinedValue('gestures')
+$NEED_WINS = getDefinedValue('need_wins')
+
 .player
   position: relative
   display: inline-block
   size: 50vw 100vh
   transition: all ease .2s
-  .icon-crown
-    display: inline-block
-    margin: auto .5rem
 
   &:first-child
     background-color: #303f9f
-    .crows
+    .records
       absolute: left 0
+
   &:last-child
     background-color: #d32f2f
-    .crows
+    .records
       absolute: right 0
 
-.game:not(.new):not(.end)
-  color white
-  .player:first-child [class ^= gesture]
-    transform: rotate(90deg)
-  .player:last-child [class ^= gesture]
-    transform: rotate(-90deg) scaleX(-1)
-
-
-.game
-  &.r-0-1
+for i in (-1 * $NEED_WINS .. $NEED_WINS)
+  .game.battle-{i}
+    $player1Width = (50 + i * (100 / ($NEED_WINS * 2)))vw
+    $player2Width = 100vw - $player1Width
     .player:first-child
-      width: 25vw
+      width: $player1Width
     .player:last-child
-      width: 75vw
-  &.r-0-2, &.r-1-2
-    .player:first-child
-      width: 0
-    .player:last-child
-      width: 100vw
-  &.r-1-0
-    .player:first-child
-      width: 75vw
-    .player:last-child
-      width: 25vw
-  &.r-2-0, .r-2-1
-    .player:first-child
-      width: 100vw
-    .player:last-child
-      width: 0vw
-
-GESTURES = ('rock' 'paper' 'scissors')
+      width: $player2Width
 
 [class ^= gesture]
   absolute: top 10vh left 0 right 0
@@ -56,21 +34,19 @@ GESTURES = ('rock' 'paper' 'scissors')
   border: 10px solid white
   border-radius: 100%
 
-  & svg
-    fill: white
-
 for i in (0..2)
-  .gesture-{GESTURES[i]}
-    $url = '../images/gesture-' + GESTURES[i] + '.svg'
+  .gesture-{$GESTURES[i]}
+    $url = '../images/gesture-' + $GESTURES[i] + '.svg'
     background-image: url($url)
 
-
-.winner
-  absolute: left 0 right 0 bottom 25vh
-  font-size: 4rem
-  text-align: center
-
+.game:not(.new):not(.end)
+  .player:first-child [class ^= gesture]
+    transform: rotate(90deg)
+  .player:last-child [class ^= gesture]
+    transform: rotate(-90deg) scaleX(-1)
 
 .icon-crown
+  display: inline-block
   size: 48px
+  margin: auto .5rem
   background-image: url('../images/crown.svg')
