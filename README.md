@@ -3,7 +3,7 @@
 A small game sample is written with React.
 
 # Demo
-  [![Demo](rps.png)](rps.mp4 "Demo")
+  ![Demo](rps.gif)
 
 # Getting Started
 
