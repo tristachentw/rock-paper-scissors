@@ -52,7 +52,7 @@ class App extends Component {
     }
     return (
       <div className={classnames('game', game.status, `battle-${sub}`)}>
-        <div>
+        <div className='players'>
           {players.map((p, i) => <Player key={`player-${i}`} {...p}></Player>)}
         </div>
         <button className='button status-button' onClick={this.handleClick}>
