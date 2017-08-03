@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Rock Paper Scissors",
   "scripts": {
-    "start": "webpack-dev-server --env=dev",
+    "start": "webpack-dev-server --env=dev --open",
     "dev": "webpack-dev-server --env=dev",
     "build:dev": "webpack -d --env=dev",
     "build:prod": "webpack -p --env=prod"

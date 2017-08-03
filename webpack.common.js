@@ -40,7 +40,8 @@ export default {
               nib(),
               StylusPlugin(path.resolve(__dirname, SOURCE_FOLDER, 'app.json'))
             ],
-            import: ['~nib/lib/nib/index.styl'] }
+            import: ['~nib/lib/nib/index.styl']
+          }
         }]
       })
     }]
